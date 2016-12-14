@@ -1,71 +1,168 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport"
-      content="height=device-height, width=device-width, initial-scale=1, user-scalable=no" />
-	<title>Design version : Connect to TActHab environment</title>
-	<script>
-		function load() {
-			let localhost = window.location.protocol + "//" + window.location.host;
-			let adresse = localStorage.getItem( "TActHab_adresse" ) || localhost;
-			console.log( "adresse", adresse );
-			document.querySelector("#adresse").value = adresse;
-			localStorage.setItem( "TActHab_adresse", adresse);
-		}
-		function change(evt) {
-			//console.log()
-			localStorage.setItem( "TActHab_adresse", evt.target.value);
-		}
-	</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+   <meta name="apple-mobile-web-app-capable" content="yes" />
+   <meta name="mobile-web-app-capable" content="yes">
+  <title>domoshare</title>
+
+  <!-- TYPO -->
+  <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+  <link rel="stylesheet" type="text/css" href="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+
+  <link rel="stylesheet" href="main.min.css">
 </head>
-<body onload="load()">
-	<h1>Connexion à l'environnement TActHab</h1>
-	<section>
-		<label>Adresse du serveur: </label>
-		<input id="adresse" onchange="change(event)"/>
-	</section>
-	<h2>Versions (très) basiques</h2>
-	<ul>
-		<li><a href="Vanilla_TS_JS/index.html"	>JQuery + TypeScript/EcmaScript/Javascript</a></li>
-		<li><a href="Angular_1_5_x/index.html"	>Angular 1.5</a></li>
-		<li><a href="Angular_2_x/index.html"	>Angular 2</a></li>
-	</ul>
-    <h2>Versions des étudiants de M1 MIAGE (au 4/11/2016)</h2>
+<body>
+
+    <!-- premier écran -->
+  <div id="splash">
+    <span class="demarrer">x</span>
+    <span class="hello">Bienvenue<br>
+      dans <b>DomoShare</b>
+    </span>
+    <span class="logo"><img src="img/logo.png" /></span>
+    <span class="sous-titre">l'application de partage local<br> de média sur tous vos appareils <br>connectés!</span>
+  </div>
+
+  <!-- on boarding -->
+  <div id="onboarding">
+    <span class="suivant">°</span>
+    <span class="texte1">Bienvenue!</span>
+    <span class= "description">Choisissez un serveur pour<br> naviguer dans ses média.</span>
+    <span class="panel"><img src="img/panel.png" /></span>
+  </div>
+
+
+  <!-- Serveurs -->
+  <section id="servers">
+
+  <h3>serveurs disponibles</h3>
+
+    <div id="listeservers">
     <ul>
-        <li>
-            <h3>Notflix/</h3>
-            <p><a href="Notflix/index.html">Accès sur le Raspberry</a></p>
-            <p>L'équipe est composée de Hugo Vaillant, Aurélien Fernandes, Alexis Martinier et Luc Ortiz.</p>
-            <p>Contact: ortiz.luc9@gmail.com</p>
-            <p>Lien github: <a href="https://github.com/Hyp3ri0n/Notflix">https://github.com/Hyp3ri0n/Notflix</a></p>
-            <p>Installation en local (dans le répertoire m1m-clients:
-                <code>
-                    sudo git clone https://github.com/Hyp3ri0n/Notflix<br/>
-                    cd Notflix<br/>
-                    sudo npm install<br/>
-                    sudo gulp
-                </code>
-            </p>
-        </li>
-        <li>
-            <h3>ProjectIHM_Angular2</h3>
-            <p><a href="ProjectIHM_Angular2/index.html">Accès sur le Raspberry</a></p>
-            <p>L'équipe est composée de Lucas Mirande, Adrien Houry, Charles-Edouard Chomarat, Corentin Pauze et Jolin Fritzgerald.</p>
-            <p>Contact: lucas.mirande26@gmail.com</p>
-            <p>Lien github: <a href="https://github.com/lucasmd/ProjectIHM_Angular2">https://github.com/lucasmd/ProjectIHM_Angular2</a></p>
-            <p>Installation en local (dans le répertoire m1m-clients:
-                <code>
-                    sudo git clone https://github.com/lucasmd/ProjectIHM_Angular2<br/>
-                    cd ProjectIHM_Angular2<br/>
-                    sudo npm install<br/>
-                    sudo gulp
-                </code>
-            </p>
-        </li>
+      <li><h5><img src= img/ordi.png />Plex Media Server: RPI 3</h3></li>
+      <li><h5><img src= img/ordi.png />Kodi (MONSUPERORDI)</h5></li>
+      <li><h5><img src= img/ordi.png />Plex Media Server: MacBook Pro de Fanny</h3></li>
     </ul>
+    </div>
+
+    <!-- niveau 1 des dossiers plex1 -->
+    <div id="plex1niv1" class="hidden">
+      <ul>
+        <li>Genres</li>
+        <li>Artistes</li>
+        <li>Albums</li>
+        <li id="plex1songs">Titres</li>
+        <li>Années</li>
+        <li>Top 100</li>
+        <li>Récemment ajoutés</li>
+        <li>Derniers lus</li>
+        <li>Playlists</li>
+      </ul>
+    </div>
+<!-- fin niveau 1 des dossiers plex1 -->
+
+<!-- niveau 2 des dossiers plex1 -->
+    <div id="plex1niv2" class="hidden">
+    <table cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              A Punchup at A Wedding — Radiohead
+            </t
+          </tr>
+                    <tr>
+            <td>
+              All Neon Like — Bjork
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+              The Book of Right-On — Joanna Newsom
+            </td>
+
+        </tr>
+        <tr id="songikeda">
+            <td>
+              Data: Microhelix — Ryoji Ikeda
+            </td>
+
+        </tr>
+        <tr>
+            <td>
+              Hard Sun — Eddie Vedder
+            </td>
+        </tr>
+        <tr>
+            <td>
+              Insert — Opiate
+            </td>
+        </tr>
+        <tr>
+            <td>
+              Move On Me — Fink
+            </td>
+        </tr>
+        <tr>
+            <td>
+              Not A Number — Apparat
+            </td>
+        </tr>
+        <tr>
+            <td>
+              The Rip — Portishead
+            </td>
+        </tr>
+        <tr>
+            <td>
+              SURRIPERE — Autechre
+            </td>
+        </tr>
+        <tr>
+            <td>
+              Vaihtovirta — Pan Sonic
+            </td>
+        </tr>
+        <tr>
+            <td>
+              Zoetrope — Boards of Canada
+            </td>
+        </tr>
+    </table>
+  </div>
+<!-- fin niveau 2 des dossiers plex1 -->
+  </section>
+
+<!-- players dispos -->
+  <section ="renderers">
+    <h4>players disponibles</h4>
+    <!-- carousel -->
+      <div class="carousel">
+        <!-- diapo 1 -->
+        <div id="kodi">
+          <h3>MacBook Pro de Fanny</h3>
+          <button>play</button>
+          <input type="range"></input>
+        </div>
+        <!-- diapo 2 -->
+        <div>
+          <button>p</button>
+          <h6>iPhone de Célia</h6>
+        </div>
+      </div>
+  </section>
+  <script
+  src="http://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script type="text/javascript" src="http://cdn.jsdelivr.net/jquery.slick/1.6.0/slick.min.js"></script>
+  <script src="main.js" charset="utf-8"></script>
 
 
-    https://github.com/Hyp3ri0n/Notflix
 </body>
 </html>
